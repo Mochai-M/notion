@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        /*CSS RESETS*/
+
+body{
+    background-color: #191919;
+    line-height: 1.6;
+
+}
+
+h1 {
+    margin-top: 0;
+}
+
+
+/*CSS START*/
+
+.full-table {
+    display: table;
+    height: 100%;
+    width: 100%;
+}
+
+.table-cell {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.card {
+    padding: 10px 25px 10px 25px;
+    border-radius: 10px;
+    background: #143a4e;
+    color: #ffffff;
+    display: inline-block;
+    box-shadow: 2px 2px 1px 0px #295C7B;
+}
+
+.card:hover {
+    margin-top: 2px;
+    box-shadow: none;
+}
+
+.clock {
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+    /* padding-left: 20px; */
+}
+
+.time {
+    display: inline-block;
+    min-width: 37px;
+}
+
+.colon {
+    font-size: 1.1em;
+    display: inline-block;
+}
+
+.date {
+    display: block;
+    min-width: 162px;
+    /* padding-right: 30px; */
+    /* border-right: 2px solid #295C7B; */
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;
+}
+.greet{
+    
+    min-width: 162px;
+    /* padding-right: 30px; */
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+    </style>
+</head>
+<body>
+    <link href="https://fonts.googleapis.com/css?family=Lobster|Roboto:400,700" rel="stylesheet">
+
+<div class="full-table">
+  <div class="table-cell">
+    
+    <div class="card">
+        <div class="greet" id="greet"></div>
+      <div class="date" id="date"></div>
+      <div class="clock">
+        <div class="time" id="hour"></div>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+<script>
+
+const daysofweek = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+
+const monthsofyear = ['January','February','March','April','May','June','July','August','September','October','November','December']
+
+
+  
+    function date() {
+var today = new Date();
+var day = daysofweek[today.getDay()]
+var month = monthsofyear[today.getMonth()]
+var ending = ""
+
+if(today.getDate()==2 || today.getDate()==12 || today.getDate()==22)
+      ending += "nd";
+  else if(today.getDate()==1 || today.getDate()==11 || today.getDate()==21 || today.getDate()==31)
+      ending += "st";
+  else if(today.getDate()==3 || today.getDate()==13 || today.getDate()==23)
+      ending += "rd";
+  else 
+    ending += 'th'
+
+document.getElementById('date').innerHTML = day+", "+month+" the "+today.getDate()+ending;
+}
+
+
+function clock() {
+var today = new Date();
+var real_date = today.getDay();
+var hour = twelveHour(today.getHours());
+var minutes = zeros(today.getMinutes());
+var twelvehour = "";
+if(today.getHours() >12){
+    var twelvehour=" pm"
+}
+else{
+    var twelvehour=" am"
+}
+
+hrs = today.getHours();
+if (hrs < 12)
+        greet = 'Good Morning  ';
+    else if (hrs >= 12 && hrs <= 17)
+        greet = 'Good Afternoon ';
+    else if (hrs >= 17 && hrs <= 24)
+        greet = 'Good Evening  ';
+
+hour = hour + ":"+minutes+twelvehour
+// console.log(today.toLocaleTimeString());
+document.getElementById('greet').innerHTML = greet;
+document.getElementById('hour').innerHTML = hour;
+document.getElementById('min').innerHTML = minutes;
+document.getElementById('real_date').innerHTML = real_date;
+}
+
+function twelveHour(hour) {
+if (hour > 12) {
+    return hour -= 12 
+} else if (hour === 0) {
+    return hour = 12;
+} else {
+    return hour
+}
+}
+// adds zero infront of single digit number
+function zeros(num) {
+if (num < 10) {
+    num = '0' + num
+};
+return num;
+}
+
+function dateTime() {
+date();
+clock();
+setTimeout(dateTime, 500);
+}
+
+dateTime()
+// END
+</script>
+
+</body>
+</html>
